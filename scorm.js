@@ -9,8 +9,15 @@ function onClick() {
     scorm.set("cmi.core.lesson_location", "location :" + clicks);
     scorm.save();
     scorm.get("cmi.core.lesson_location");
+//     var currentScoPage = scorm.get("cmi.core.lesson_location");
+// if (currentScoPage != "") {
+//    self.location = currentScoPage;
+// }else{
+//     currentScoPage = scoPage[0];
+// } 
 
 };
+
 
 var scorm = pipwerks.SCORM;  //Shortcut
 var lmsConnected = false;
@@ -27,9 +34,20 @@ alert(msg);
 
 
 function initCourse(){
+var currentScoPage = "index.html";
+var pageNumber = 0;
 
 //scorm.init returns a boolean
 lmsConnected = scorm.init();
+
+var entryValue = scorm.get("cmi.core.entry");
+if (entryValue = "ab-initio") {
+  return currentScoPage;
+}else{
+   currentScoPage = scorm.get("cmi.core.lesson_location");
+}
+self.location = currentScoPage; // load either the 1st content page or the page last
+                                              // visited. 
 
 //If the scorm.init function succeeded...
 if(lmsConnected){
@@ -47,12 +65,14 @@ if(lmsConnected){
 
   //Now let's get the username from the LMS
   var learnername = scorm.get("cmi.core.student_name");
+  var studentID = scorm.get("cmi.core.student_id");
+
 
   //If the name was successfully retrieved...
-  if(learnername){  
+  if(learnername || studentID){  
   
      //...let's display the username in a page element named "learnername"
-     document.getElementById("learnername").innerHTML = learnername; //use the name in the form
+     document.getElementById("learnername").innerHTML = learnername + "" + "( " +studentID +")"; //use the name in the form
   
   }
 
@@ -159,6 +179,8 @@ function displayRadioValue() {
            scorm.set("cmi.interactions.n.result", "wrong") ;
           }
 
+         
+
   } 
   var assessmentScore = 0.0;
 var emptyString = "";
@@ -187,7 +209,9 @@ scorm.get("cmi.interactions.0.correct_responses._count");
   scorm.set("cmi.interactions.0.id", "quize1");
   scorm.set("cmi.interactions.0.type", "choice");
   scorm.save()
-  scorm.get("cmi.student_data.mastery_score")
+  scorm.get("cmi.student_data.mastery_score");
+
+  
 } 
 
 
