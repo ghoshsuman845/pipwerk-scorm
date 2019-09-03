@@ -32,6 +32,7 @@ intra-SCO navigation.
 			<title>PipWerk Scorm Wrapper</title>
 			<item identifier="item_1" identifierref="resource_1">
 				<title>Scorm 1</title>
+        <adlcp:masteryscore>100</adlcp:masteryscore>
         <!-- Include some basic sequencing information that overrides the defaults-->
         <imsss:sequencing>
           <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true"/>
